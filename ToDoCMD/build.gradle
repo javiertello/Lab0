@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.3'
+}
+
+task addToDo(type: JavaExec, dependsOn: classes) {
+	if ('addToDo' in gradle.startParameter.taskNames &&
+	    gradle.startParameter.logLevel < LogLevel.QUIET) {
+        println "Note: The task 'addToDo' works best in quiet mode (gradle -q addToDo)"
+    }
+    group 			= 'Formats JSON'
+    description 	= 'Add a person to an address book'
+    main 			= 'toDo.AddToDo'
+	classpath 		= sourceSets.main.runtimeClasspath
+	standardInput	= System.in
+} 
+
+task listToDo(type: JavaExec) {
+    group 			= 'Formats JSON'
+    description 	= 'List the contents of a ToDo list'
+    main 			= 'toDo.ListToDo'
+	classpath 		= sourceSets.main.runtimeClasspath
+}
+
